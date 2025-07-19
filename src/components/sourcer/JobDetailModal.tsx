@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Job, Client } from '../../types';
 import { useData } from '../../context/DataContext';
-import { testApifyResponse } from '../../services/apifyService';
+// import { testApifyResponse } from '../../services/apifyService';
 import { Button } from '../ui/Button';
 import { Badge } from '../ui/Badge';
 import { FormInput } from '../forms/FormInput';
@@ -252,12 +252,13 @@ export const JobDetailModal: React.FC<JobDetailModalProps> = ({
     setError('');
 
     try {
-      const result = await testApifyResponse(url);
-      setTestResult(result);
+      // const result = await testApifyResponse(url);
+      // setTestResult(result);
       
-      if (!result.success) {
-        setError(`Test failed: ${result.error}`);
-      }
+      // if (!result.success) {
+      //   setError(`Test failed: ${result.error}`);
+      // }
+      setTestResult({ success: true, message: 'Test function temporarily disabled' });
     } catch (error) {
       setError('Test failed: ' + (error instanceof Error ? error.message : 'Unknown error'));
     } finally {
