@@ -1,7 +1,17 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Client, Job, Candidate, Tier } from '../types';
-import { scrapeLinkedInProfiles } from '../services/apifyService';
+// import { scrapeLinkedInProfiles } from '../services/apifyService';
 import { generateJobMatchScore } from '../services/anthropicService';
+
+// Temporary fallback function until apifyService is properly configured
+const scrapeLinkedInProfiles = async (linkedinUrls: string[]): Promise<any> => {
+  console.warn('Apify service not configured - using fallback');
+  return {
+    success: false,
+    profiles: [],
+    error: 'Apify service not configured'
+  };
+};
 
 interface DataContextType {
   clients: Client[];
