@@ -27,67 +27,69 @@ function App() {
     <AuthProvider>
       <DataProvider>
         <BrowserRouter>
-          <Layout>
-            <Routes>
-              {/* Public Routes - accessible to all */}
-              <Route path="/login" element={
-                <RoleBasedRoute requireAuth={false}>
-                  <LoginPage />
-                </RoleBasedRoute>
-              } />
-              <Route path="/signup" element={
-                <RoleBasedRoute requireAuth={false}>
-                  <SignupPage />
-                </RoleBasedRoute>
-              } />
-              
-              {/* Landing Page - accessible to all, but shows different content based on auth */}
-              <Route path="/" element={
-                <RoleBasedRoute requireAuth={false}>
-                  <LandingPage />
-                </RoleBasedRoute>
-              } />
-              
-              {/* Role-Specific Routes */}
-              <Route path="/admin" element={
-                <RoleBasedRoute allowedRoles={['admin']}>
-                  <AdminPage />
-                </RoleBasedRoute>
-              } />
-              <Route path="/sourcer" element={
-                <RoleBasedRoute allowedRoles={['sourcer']}>
-                  <SourcerPage />
-                </RoleBasedRoute>
-              } />
-              
-              {/* Client Routes */}
-              <Route path="/client" element={
-                <RoleBasedRoute allowedRoles={['client']}>
-                  <ClientPage />
-                </RoleBasedRoute>
-              } />
-              <Route path="/candidates" element={
-                <RoleBasedRoute allowedRoles={['client', 'admin']}>
-                  <CandidatesPage />
-                </RoleBasedRoute>
-              } />
-              
-              {/* Subscription Routes - Client Only */}
-              <Route path="/subscription" element={
-                <RoleBasedRoute allowedRoles={['client']}>
-                  <SubscriptionPlans />
-                </RoleBasedRoute>
-              } />
-              <Route path="/subscription/success" element={
-                <RoleBasedRoute allowedRoles={['client']}>
-                  <SubscriptionSuccess />
-                </RoleBasedRoute>
-              } />
-              
-              {/* Catch-all - redirect to appropriate home based on role */}
-              <Route path="*" element={<LandingPage />} />
-            </Routes>
-          </Layout>
+          <Routes>
+            {/* Landing Page - standalone, no layout */}
+            <Route path="/" element={
+              <RoleBasedRoute requireAuth={false}>
+                <LandingPage />
+              </RoleBasedRoute>
+            } />
+            
+            {/* All other routes use Layout */}
+            <Route path="*" element={
+              <Layout>
+                <Routes>
+                  {/* Public Routes - accessible to all */}
+                  <Route path="/login" element={
+                    <RoleBasedRoute requireAuth={false}>
+                      <LoginPage />
+                    </RoleBasedRoute>
+                  } />
+                  <Route path="/signup" element={
+                    <RoleBasedRoute requireAuth={false}>
+                      <SignupPage />
+                    </RoleBasedRoute>
+                  } />
+                  
+                  {/* Role-Specific Routes */}
+                  <Route path="/admin" element={
+                    <RoleBasedRoute allowedRoles={['admin']}>
+                      <AdminPage />
+                    </RoleBasedRoute>
+                  } />
+                  <Route path="/sourcer" element={
+                    <RoleBasedRoute allowedRoles={['sourcer']}>
+                      <SourcerPage />
+                    </RoleBasedRoute>
+                  } />
+                  
+                  {/* Client Routes */}
+                  <Route path="/client" element={
+                    <RoleBasedRoute allowedRoles={['client']}>
+                      <ClientPage />
+                    </RoleBasedRoute>
+                  } />
+                  <Route path="/candidates" element={
+                    <RoleBasedRoute allowedRoles={['client', 'admin']}>
+                      <CandidatesPage />
+                    </RoleBasedRoute>
+                  } />
+                  
+                  {/* Subscription Routes - Client Only */}
+                  <Route path="/subscription" element={
+                    <RoleBasedRoute allowedRoles={['client']}>
+                      <SubscriptionPlans />
+                    </RoleBasedRoute>
+                  } />
+                  <Route path="/subscription/success" element={
+                    <RoleBasedRoute allowedRoles={['client']}>
+                      <SubscriptionSuccess />
+                    </RoleBasedRoute>
+                  } />
+                </Routes>
+              </Layout>
+            } />
+          </Routes>
         </BrowserRouter>
       </DataProvider>
     </AuthProvider>
