@@ -28,12 +28,8 @@ function App() {
       <DataProvider>
         <BrowserRouter>
           <Routes>
-            {/* Landing Page - standalone, no layout */}
-            <Route path="/" element={
-              <RoleBasedRoute requireAuth={false}>
-                <LandingPage />
-              </RoleBasedRoute>
-            } />
+            {/* Landing Page - accessible to everyone, no auth required */}
+            <Route path="/" element={<LandingPage />} />
             
             {/* All other routes use Layout */}
             <Route path="*" element={
